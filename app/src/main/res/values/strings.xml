@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">RxJavaSample</string>
+    <string name="username">账号</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
+
+    <string-array name="operator_title">
+        <item>just( ) — 将一个或多个对象转换成发射这个或这些对象的一个Observable。</item>
+        <item>from( ) — 将一个Iterable, 一个Future, 或者一个数组转换成一个Observable</item>
+        <item>repeat( ) — 创建一个重复发射指定数据或数据序列的Observable</item>
+        <item>repeatWhen( ) — 创建一个重复发射指定数据或数据序列的Observable，它依赖于另一个Observable发射的数据</item>
+        <item>create( ) — 使用一个函数从头创建一个Observable</item>
+        <item>defer( ) — 只有当订阅者订阅才创建Observable；为每个订阅创建一个新的Observable</item>
+        <item>range( ) — 创建一个发射指定范围的整数序列的Observable</item>
+        <item>interval( ) — 创建一个按照给定的时间间隔发射整数序列的Observable</item>
+        <item>timer( ) — 创建一个在给定的延时之后发射单个数据的Observable</item>
+        <item>empty( ) — 创建一个什么都不做直接通知完成的Observable</item>
+        <item>error( ) — 创建一个什么都不做直接通知错误的Observable</item>
+        <item>never( ) — 创建一个不发射任何数据的Observable</item>
+    </string-array>
+
+    <string-array name="operator_description">
+        <item>Just将单个数据转换为发射那个数据的Observable。Just类似于From，但是From会将数组或Iterable的素具取出然后逐个发射，而Just只是简单的原样发射，
+            将数组或Iterable当做单个数据。注意：如果你传递null给Just，它会返回一个发射null值的Observable。
+            不要误认为它会返回一个空Observable（完全不发射任何数据的Observable,如果需要空Observable你应该使用Empty操作符。</item>
+        <item>From将其它种类的对象和数据类型转换为Observable。
+            当你使用Observable时，如果你要处理的数据都可以转换成展现为Observables，而不是需要混合使用Observables和其它类型的数据，会非常方便。
+            这让你在数据流的整个生命周期中，可以使用一组统一的操作符来管理它们。例如，Iterable可以看成是同步的Observable；Future，
+            可以看成是总是只发射单个数据的Observable。通过显式地将那些数据转换为Observables，你可以像使用Observable一样与它们交互。因此，
+            大部分ReactiveX实现都提供了将语言特定的对象和数据结构转换为Observables的方法。在RxJava中，from操作符可以转换Future、Iterable和数组。对于Iterable和数组，
+            产生的Observable会发射Iterable或数组的每一项数据。</item>
+        <item>Repeat重复地发射数据。某些实现允许你重复的发射某个数据序列，还有一些允许你限制重复的次数。
+        RxJava将这个操作符实现为repeat方法。它不是创建一个Observable，而是重复发射原始Observable的数据序列，这个序列或者是无限的，或者通过repeat(n)指定重复次数。
+        repeat操作符默认在trampoline调度器上执行。可以通过可选参数指定Scheduler。</item>
+        <item>repeatWhen，它不是缓存和重放原始Observable的数据序列，而是有条件的重新订阅和发射原来的Observable。
+            将原始Observable的终止通知（完成或错误）当做一个void数据传递给一个通知处理器，它以此来决定是否要重新订阅和发射原来的Observable。
+            这个通知处理器就像一个Observable操作符，接受一个发射void通知的Observable为输入，返回一个发射void数据（意思是，重新订阅和发射原始Observable）
+            或者直接终止（意思是，使用repeatWhen终止发射数据）的Observable。repeatWhen操作符默认在trampoline调度器上执行。
+            有一个变体可以通过可选参数指定Scheduler。</item>
+        <item>你可以使用Create操作符从头开始创建一个Observable，给这个操作符传递一个接受观察者作为参数的函数，编写这个函数让它的行为表现为一个Observable
+            恰当的调用观察者的onNext，onError和onCompleted方法。一个形式正确的有限Observable必须尝试调用观察者的onCompleted正好一次
+            或者它的onError正好一次，而且此后不能再调用观察者的任何其它方法。 建议你在传递给create方法的函数中检查观察者的isUnsubscribed状态，
+            以便在没有观察者的时候，让你的Observable停止发射数据或者做昂贵的运算。create方法默认不在任何特定的调度器上执行。</item>
+        <item>Defer操作符会一直等待直到有观察者订阅它，然后它使用Observable工厂方法生成一个Observable。它对每个观察者都这样做，
+            因此尽管每个订阅者都以为自己订阅的是同一个Observable，事实上每个订阅者获取的是它们自己的单独的数据序列。
+            在某些情况下，等待直到最后一分钟（就是知道订阅发生时）才生成Observable可以确保Observable包含最新的数据。
+            defer方法默认不在任何特定的调度器上执行。</item>
+        <item>Range操作符发射一个范围内的有序整数序列，你可以指定范围的起始和长度。RxJava将这个操作符实现为range函数，它接受两个参数，
+            一个是范围的起始值，一个是范围的数据的数目。如果你将第二个参数设为0，将导致Observable不发射任何数据（如果设置为负数，会抛异常）。
+            range默认不在任何特定的调度器上执行。可以通过可选参数指定Scheduler。</item>
+        <item>Interval操作符返回一个Observable，它按固定的时间间隔发射一个无限递增的整数序列。它接受一个表示时间间隔的参数和一个表示时间单位的参数。</item>
+        <item>Timer返回一个Observable，它在延迟一段给定的时间后发射一个简单的数字0。timer操作符默认在computation调度器上执行。
+            可以通过可选参数指定Scheduler。</item>
+        <item>RxJava将这些操作符实现为 empty，never和error。error操作符需要一个Throwable参数，你的Observable会以此终止。这些操作符默认不在任何特定的调度器上执行，
+            但是empty和error有一个可选参数是Scheduler，如果你传递了Scheduler参数，它们会在这个调度器上发送通知。</item>
+        <item>RxJava将这些操作符实现为 empty，never和error。error操作符需要一个Throwable参数，你的Observable会以此终止。这些操作符默认不在任何特定的调度器上执行，
+            但是empty和error有一个可选参数是Scheduler，如果你传递了Scheduler参数，它们会在这个调度器上发送通知。</item>
+        <item>RxJava将这些操作符实现为 empty，never和error。error操作符需要一个Throwable参数，你的Observable会以此终止。这些操作符默认不在任何特定的调度器上执行，
+            但是empty和error有一个可选参数是Scheduler，如果你传递了Scheduler参数，它们会在这个调度器上发送通知。</item>
+    </string-array>
+</resources>
