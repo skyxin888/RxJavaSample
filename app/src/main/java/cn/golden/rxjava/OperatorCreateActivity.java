@@ -22,7 +22,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by user on 16/7/19.
  */
-public class OperatorDetailActivity extends BaseActivity{
+public class OperatorCreateActivity extends BaseActivity{
 
 
     @Bind(R.id.button)
@@ -43,56 +43,56 @@ public class OperatorDetailActivity extends BaseActivity{
     private String description;
     private String title;
 
-    private static  final String TAG = "OperatorDetailActivity";
+    private static  final String TAG = "OperatorCreateActivity";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_operator_detail);
+        setContentView(R.layout.activity_operator_create);
         ButterKnife.bind(this);
         category = getIntent().getIntExtra("position",-1);
         if (category != -1){
-            description = getResources().getStringArray(R.array.operator_description)[category];
-            title =getResources().getStringArray(R.array.operator_title)[category];
+            description = getResources().getStringArray(R.array.operator_create_description)[category];
+            title =getResources().getStringArray(R.array.operator_create_title)[category];
             initViews();
         }
     }
 
     private void initViews() {
         switch (category){
-            case Opertor.just:
+            case Opertor.Create.just:
                 mButton.setText("just");
                 break;
-            case Opertor.from:
+            case Opertor.Create.from:
                 mButton.setText("from");
                 break;
-            case Opertor.repeat:
+            case Opertor.Create.repeat:
                 mButton.setText("repeat");
                 break;
-            case Opertor.repeatWhen:
+            case Opertor.Create.repeatWhen:
                 mButton.setText("repeatWhen");
                 break;
-            case Opertor.create:
+            case Opertor.Create.create:
                 mButton.setText("create");
                 break;
-            case Opertor.defer:
+            case Opertor.Create.defer:
                 mButton.setText("defer");
                 break;
-            case Opertor.ranger:
+            case Opertor.Create.ranger:
                 mButton.setText("ranger");
                 break;
-            case Opertor.interval:
+            case Opertor.Create.interval:
                 mButton.setText("interval");
                 break;
-            case Opertor.timer:
+            case Opertor.Create.timer:
                 mButton.setText("timer");
                 break;
-            case Opertor.empty:
+            case Opertor.Create.empty:
                 mButton.setText("empty");
                 break;
-            case Opertor.error:
+            case Opertor.Create.error:
                 mButton.setText("error");
                 break;
-            case Opertor.never:
+            case Opertor.Create.never:
                 mButton.setText("never");
                 break;
             default:
@@ -105,39 +105,39 @@ public class OperatorDetailActivity extends BaseActivity{
     @OnClick(R.id.button)
     void onClickEvent(){
         switch (category){
-            case Opertor.just:
+            case Opertor.Create.just:
                 RxforJust();
                 break;
-            case Opertor.from:
+            case Opertor.Create.from:
                 RxforFrom();
                 break;
-            case Opertor.repeat:
+            case Opertor.Create.repeat:
                 RxforRepeat();
                 break;
-            case Opertor.repeatWhen:
+            case Opertor.Create.repeatWhen:
                 RxforRepeatWhen();
                 break;
-            case Opertor.create:
+            case Opertor.Create.create:
                 RxforCreate();
                 break;
-            case Opertor.defer:
+            case Opertor.Create.defer:
                 RxforDefer();
-            case Opertor.ranger:
+            case Opertor.Create.ranger:
                 RxforRanger();
                 break;
-            case Opertor.interval:
+            case Opertor.Create.interval:
                 RxforInterval();
                 break;
-            case Opertor.timer:
+            case Opertor.Create.timer:
                 RxforTimer();
                 break;
-            case Opertor.empty:
+            case Opertor.Create.empty:
                 RxforEmpty();
                 break;
-            case Opertor.error:
+            case Opertor.Create.error:
                 RxforError();
                 break;
-            case Opertor.never:
+            case Opertor.Create.never:
                 RxforNever();
                 break;
             default:

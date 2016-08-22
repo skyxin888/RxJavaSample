@@ -16,10 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OperatorDetailActivity"
+        <activity android:name=".OperatorCreateActivity"
             android:theme="@style/ActivityTheme">
 
         </activity>
+        <activity android:name=".OperatorTransformActivity"
+            android:theme="@style/ActivityTheme">
+        </activity>
+
     </application>
 
 </manifest>

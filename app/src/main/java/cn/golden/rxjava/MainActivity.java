@@ -18,7 +18,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.golden.rxjava.fragment.CreateFragment;
+import cn.golden.rxjava.fragment.OperatorListFragment;
 import cn.golden.rxjava.fragment.TestFragment;
 import rx.Observer;
 import rx.Subscription;
@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.viewPager)
     ViewPager mViewPager;
 
+    public static final int TYPE_CREATE = 0 ;
+    public static final int TYPE_TRANSFORM = 1 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar);
 
         TabLayout.Tab tabOne = mTabLayout.newTab().setText("创建操作符");
-        TabLayout.Tab tabTwo = mTabLayout.newTab().setText("TabTwo");
+        TabLayout.Tab tabTwo = mTabLayout.newTab().setText("变换操作符");
         TabLayout.Tab tabThree = mTabLayout.newTab().setText("TabThree");
 
         mTabLayout.addTab(tabOne);
@@ -54,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         MyViewPagerAdapter viewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(CreateFragment.newInstance(), tabOne.getText().toString());//添加Fragment
-        viewPagerAdapter.addFragment(TestFragment.newInstance(), tabTwo.getText().toString());
+        viewPagerAdapter.addFragment(OperatorListFragment.newInstance(TYPE_CREATE), tabOne.getText().toString());//添加Fragment
+        viewPagerAdapter.addFragment(OperatorListFragment.newInstance(TYPE_TRANSFORM), tabTwo.getText().toString());
         viewPagerAdapter.addFragment(TestFragment.newInstance(), tabThree.getText().toString());
 
 

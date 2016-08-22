@@ -13,32 +13,34 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.golden.rxjava.DividerItemDecoration;
-import cn.golden.rxjava.OperatorDetailActivity;
+import cn.golden.rxjava.MainActivity;
+import cn.golden.rxjava.OperatorCreateActivity;
+import cn.golden.rxjava.OperatorTransformActivity;
 import cn.golden.rxjava.R;
 import cn.golden.rxjava.adapter.BaseAdapter;
 import cn.golden.rxjava.adapter.BaseViewHolder;
 import cn.golden.rxjava.adapter.OnItemClickListener;
-import rx.Observable;
-import rx.Subscriber;
 
 /**
  * Created by user on 16/7/15.
  */
-public class CreateFragment extends BaseFragment{
+public class OperatorListFragment extends BaseFragment{
 
 
-    public  static final String TAG = "CreateFragment";
+    public  static final String TAG = "OperatorListFragment";
 
     public String[] operator_create = {"just()", "from()", "repeat()", "repeatWhen()", "create()", "defer()"
             , "ranger()", "interval()", "timer()", "empty()", "error()", "never()"};
 
+    public String[] operator_transform = {"map( )","flatMap( )","switchMap( )","scan( )","groupBy( )","buffer( )","window( )","cast( )"};
     private BaseAdapter mAdapter;
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
+    private String[] operator;
+    private int mType = -1;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,19 +50,28 @@ public class CreateFragment extends BaseFragment{
     }
 
 
-    public static CreateFragment newInstance() {
-        return new CreateFragment();
+    public static OperatorListFragment newInstance(int type) {
+        OperatorListFragment fragment = new OperatorListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type",type);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initViews();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        mType = getArguments().getInt("type");
+        switch (mType) {
+            case MainActivity.TYPE_CREATE:
+                operator = operator_create;
+                break;
+            case MainActivity.TYPE_TRANSFORM:
+                operator = operator_transform;
+                break;
+            default:
+                break;
+        }
         initViews();
     }
 
@@ -69,7 +80,7 @@ public class CreateFragment extends BaseFragment{
             @Override
             protected void onBindView(BaseViewHolder holder, int position) {
                 TextView tv = holder.getView(R.id.item_name_tv);
-                tv.setText(operator_create[position]);
+                tv.setText(operator[position]);
             }
 
             @Override
@@ -79,15 +90,23 @@ public class CreateFragment extends BaseFragment{
 
             @Override
             public int getItemCount() {
-                return operator_create.length;
+                return operator.length;
             }
         };
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Log.d(TAG,"onItemClick ");
-                Intent intent = new Intent(getActivity(),OperatorDetailActivity.class);
-                intent.putExtra("position",position);
+                Intent intent = new Intent();
+                switch (mType) {
+                    case MainActivity.TYPE_CREATE:
+                        intent.setClass(getActivity(),OperatorCreateActivity.class);
+                        intent.putExtra("position",position);
+                        break;
+                    case MainActivity.TYPE_TRANSFORM:
+                        intent.setClass(getActivity(),OperatorTransformActivity.class);
+                        intent.putExtra("position",position);
+                        break;
+                }
                 getActivity().startActivity(intent);
             }
         });
