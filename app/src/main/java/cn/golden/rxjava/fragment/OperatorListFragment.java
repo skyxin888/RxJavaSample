@@ -15,6 +15,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.golden.rxjava.DividerItemDecoration;
 import cn.golden.rxjava.MainActivity;
+import cn.golden.rxjava.OperatorCombiningActivity;
 import cn.golden.rxjava.OperatorCreateActivity;
 import cn.golden.rxjava.OperatorTransformActivity;
 import cn.golden.rxjava.R;
@@ -28,12 +29,14 @@ import cn.golden.rxjava.adapter.OnItemClickListener;
 public class OperatorListFragment extends BaseFragment{
 
 
-    public  static final String TAG = "OperatorListFragment";
+    public static final String TAG = "OperatorListFragment";
 
     public String[] operator_create = {"just()", "from()", "repeat()", "repeatWhen()", "create()", "defer()"
             , "ranger()", "interval()", "timer()", "empty()", "error()", "never()"};
-
-    public String[] operator_transform = {"map( )","flatMap( )","switchMap( )","scan( )","groupBy( )","buffer( )","window( )","cast( )"};
+    public String[] operator_transform = {"map( )", "flatMap( )", "switchMap( )", "scan( )", "groupBy( )",
+            "buffer( )", "window( )", "cast( )"};
+    public String[] operator_combining = {"startWith( )", "merge( )", "mergeDelayError( ) ", "zip( )",
+            "and( ), then( ), and when( )", "combineLatest( )", "join( ) and groupJoin( )", "switchOnNext( )"};
     private BaseAdapter mAdapter;
 
     @Bind(R.id.recycler_view)
@@ -68,6 +71,9 @@ public class OperatorListFragment extends BaseFragment{
                 break;
             case MainActivity.TYPE_TRANSFORM:
                 operator = operator_transform;
+                break;
+            case MainActivity.TYPE_COMBINING:
+                operator = operator_combining;
                 break;
             default:
                 break;
@@ -105,6 +111,12 @@ public class OperatorListFragment extends BaseFragment{
                     case MainActivity.TYPE_TRANSFORM:
                         intent.setClass(getActivity(),OperatorTransformActivity.class);
                         intent.putExtra("position",position);
+                        break;
+                    case MainActivity.TYPE_COMBINING:
+                        intent.setClass(getActivity(),OperatorCombiningActivity.class);
+                        intent.putExtra("position",position);
+                        break;
+                    default:
                         break;
                 }
                 getActivity().startActivity(intent);

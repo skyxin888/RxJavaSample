@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int TYPE_CREATE = 0 ;
     public static final int TYPE_TRANSFORM = 1 ;
+    public static final int TYPE_COMBINING = 2 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout.Tab tabOne = mTabLayout.newTab().setText("创建操作符");
         TabLayout.Tab tabTwo = mTabLayout.newTab().setText("变换操作符");
-        TabLayout.Tab tabThree = mTabLayout.newTab().setText("TabThree");
+        TabLayout.Tab tabThree = mTabLayout.newTab().setText("结合操作符");
 
         mTabLayout.addTab(tabOne);
         mTabLayout.addTab(tabTwo);
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         MyViewPagerAdapter viewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(OperatorListFragment.newInstance(TYPE_CREATE), tabOne.getText().toString());//添加Fragment
         viewPagerAdapter.addFragment(OperatorListFragment.newInstance(TYPE_TRANSFORM), tabTwo.getText().toString());
-        viewPagerAdapter.addFragment(TestFragment.newInstance(), tabThree.getText().toString());
+        viewPagerAdapter.addFragment(OperatorListFragment.newInstance(TYPE_COMBINING), tabThree.getText().toString());
 
 
 

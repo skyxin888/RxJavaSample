@@ -29,4 +29,14 @@ public class Opertor {
         public static final int window = 6;
         public static final int cast = 7;
     }
+    public static class Combining{
+        public static final int startWith = 0;
+        public static final int merge = 1;
+        public static final int mergeDelayError = 2;
+        public static final int zip = 3;
+        public static final int and = 4;
+        public static final int combineLatest= 5;
+        public static final int join = 6;
+        public static final int switchOnNext = 7;
+    }
 }

@@ -97,4 +97,23 @@
         <item>cast操作符将原始Observable发射的每一项数据都强制转换为一个指定的类型，然后再发射数据，它是map的一个特殊版本。</item>
     </string-array>
 
+    <string-array name="operator_combining_title">
+        <item>startWith( ) — 在数据序列的开头增加一项数据</item>
+        <item>merge( ) — 将多个Observable合并为一个</item>
+        <item>mergeDelayError( ) — 合并多个Observables，让没有错误的Observable都完成后再发射错误通知</item>
+        <item>zip( ) — 使用一个函数组合多个Observable发射的数据集合，然后再发射这个结果</item>
+        <item>and( ), then( ), and when( ) — (rxjava-joins) 通过模式和计划组合多个Observables发射的数据集合</item>
+        <item>combineLatest( ) — 当两个Observables中的任何一个发射了一个数据时，通过一个指定的函数组合每个Observable发射的最新数据（一共两个数据），然后发射这个函数的结果</item>
+        <item>join( ) and groupJoin( ) — 无论何时，如果一个Observable发射了一个数据项，只要在另一个Observable发射的数据项定义的时间窗口内，就将两个Observable发射的数据合并发射</item>
+        <item>switchOnNext( ) — 将一个发射Observables的Observable转换成另一个Observable，后者发射这些Observables最近发射的数据</item>
+    </string-array>
+    <string-array name="operator_combining_description">
+        <item>如果你想要一个Observable在发射数据之前先发射一个指定的数据序列，可以使用StartWith操作符。（如果你想一个Observable发射的数据末尾追加一个数据序列
+            可以使用Concat操作符。）你也可以传递一个Observable给startWith，它会将那个Observable的发射物插在原始Observable发射的数据序列之前，然后把这个当做
+            自己的发射物集合。这可以看作是Concat的反转。</item>
+        <item>使用Merge操作符你可以将多个Observables的输出合并，就好像它们是一个单个的Observable一样。Merge可能会让合并的Observables发射的数据交错
+            （有一个类似的操作符Concat不会让数据交错，它会按顺序一个接着一个发射多个Observables的发射物）。任何一个原始Observable的onError通知会被立即传递给观察者，而且会终止合并后的Observable。</item>
+        <item>Merge中任何一个原始Observable的onError通知会被立即传递给观察者，而且会终止合并后的Observable。MergeDelayError的操作符，它的行为有一点不同，
+            它会保留onError通知直到合并后的Observable所有的数据发射完成，在那时它才会把onError传递给观察者</item>
+    </string-array>
 </resources>

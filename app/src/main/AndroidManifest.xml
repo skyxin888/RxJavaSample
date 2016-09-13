@@ -24,6 +24,9 @@
             android:theme="@style/ActivityTheme">
         </activity>
 
+        <activity android:name=".OperatorCombiningActivity"
+            android:theme="@style/ActivityTheme">
+        </activity>
     </application>
 
 </manifest>
