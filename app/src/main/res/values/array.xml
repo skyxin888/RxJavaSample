@@ -115,5 +115,17 @@
             （有一个类似的操作符Concat不会让数据交错，它会按顺序一个接着一个发射多个Observables的发射物）。任何一个原始Observable的onError通知会被立即传递给观察者，而且会终止合并后的Observable。</item>
         <item>Merge中任何一个原始Observable的onError通知会被立即传递给观察者，而且会终止合并后的Observable。MergeDelayError的操作符，它的行为有一点不同，
             它会保留onError通知直到合并后的Observable所有的数据发射完成，在那时它才会把onError传递给观察者</item>
+        <item>Zip操作符返回一个Obversable，它使用这个函数按顺序结合两个或多个Observables发射的数据项，然后它发射这个函数返回的结果。它按照严格的顺序应用这个函数。
+            它只发射与发射数据项最少的那个Observable一样多的数据。</item>
+        <item>And/Then/When操作符组合的行为类似于zip，但是它们使用一个中间数据结构。接受两个或多个Observable，一次一个将它们的发射物合并到Pattern对象，然后操作那个Pattern对象，
+            变换为一个Plan。随后将这些Plan变换为Observable的发射物。</item>
+        <item>CombineLatest操作符行为类似于zip，但是只有当原始的Observable中的每一个都发射了一条数据时zip才发射数据。CombineLatest则在原始的Observable中任意一个发射了数据时发射一条数据。
+            当原始Observables的任何一个发射了一条数据时，CombineLatest使用一个函数结合它们最近发射的数据，然后发射这个函数的返回值。</item>
+        <item>Join操作符结合两个Observable发射的数据，基于时间窗口（你定义的针对每条数据特定的原则）选择待集合的数据项。你将这些时间窗口实现为一些Observables，
+            它们的生命周期从任何一条Observable发射的每一条数据开始。当这个定义时间窗口的Observable发射了一条数据或者完成时，与这条数据关联的窗口也会关闭。
+            只要这条数据的窗口是打开的，它将继续结合其它Observable发射的任何数据项。你定义一个用于结合数据的函数。</item>
+        <item>Switch订阅一个发射多个Observables的Observable。它每次观察那些Observables中的一个，Switch返回的这个Observable取消订阅前一个发射数据的
+            Observable，开始发射最近的Observable发射的数据。注意：当原始Observable发射了一个新的Observable时（不是这个新的Observable发射了一条数据时），
+            它将取消订阅之前的那个Observable。这意味着，在后来那个Observable产生之后到它开始发射数据之前的这段时间里，前一个Observable发射的数据将被丢弃。</item>
     </string-array>
 </resources>
